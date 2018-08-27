@@ -1,0 +1,27 @@
+{
+  "name": "tiny-swiper",
+  "version": "1.0.0",
+  "description": "一个兼容7，ie8的3d的swiper",
+  "main": "tiny-swiper.js",
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp"
+  },
+  "keywords": [
+    "swiper，轮播图"
+  ],
+  "author": "Checkson",
+  "license": "MIT",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "jshint": "^2.9.6"
+  }
+}

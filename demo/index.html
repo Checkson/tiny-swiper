@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tiny Swiper Demo</title>
+	<style type="text/css">
+		.app-demo {
+			width: 1000px;
+			margin: 0 auto;
+		}
+		.tiny-swiper {
+			height: 400px;
+			width: 1000px;
+			border: 1px solid #dcdcdc;
+			position: relative;
+		}
+		.slide-item {
+			position: absolute;
+			width: 600px;
+			height: 400px;
+			line-height: 400px;
+			font-size: 24px;
+			color: #fff;
+			text-align: center;
+			background-color: #fafafa;
+		}
+		.bg-red { background-color: #E03636; }
+		.bg-pink { background-color: #EDD0BE; }
+		.bg-blue { background-color: #25C6FC; }
+		.bg-orange{ background-color: #F2753F; }
+		.bg-yellow { background-color: #FFE957; }
+		.bg-green { background-color: #56A36C; }
+		.bg-purple { background-color: #C3B7E5; }
+	</style>
+</head>
+<body>
+	<div class="app-demo">
+		<div class="demo demo1">
+			<div id="tinySwiper" class="tiny-swiper">
+				<div class="slide-item bg-red">1</div>
+				<div class="slide-item bg-pink">2</div>
+				<div class="slide-item bg-blue">3</div>
+				<div class="slide-item bg-orange">4</div>
+				<div class="slide-item bg-yellow">5</div>
+				<!-- <div class="slide-item bg-green">6</div>
+				<div class="slide-item bg-purple">7</div> -->
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../lib/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../dist/tiny-swiper.min.js"></script>
+	<script>
+		$('#tinySwiper').tinySwiper({
+			autoplay: true,
+			loop: true,
+			slidesProps: {
+				width: 600,
+				height: 400
+			}
+		});
+	</script>
+</body>
+</html>
