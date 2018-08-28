@@ -4,46 +4,110 @@
 	<meta charset="UTF-8">
 	<title>Tiny Swiper Demo</title>
 	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
 		.app-demo {
-			width: 1000px;
+			width: 1030px;
 			margin: 0 auto;
 		}
+		.app-demo .demo {
+			padding: 60px 15px;
+			border-bottom: 1px solid #f0f0f0;
+		}
 		.tiny-swiper {
+			position: relative;
+		}
+		.tiny-swiper-list {
 			height: 400px;
 			width: 1000px;
-			border: 1px solid #dcdcdc;
 			position: relative;
 		}
 		.slide-item {
 			position: absolute;
 			width: 600px;
 			height: 400px;
-			line-height: 400px;
-			font-size: 24px;
+		}
+		.h1 {
+			font-size: 48px;
 			color: #fff;
-			text-align: center;
-			background-color: #fafafa;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -24px 0 0 -24px;
 		}
 		.bg-red { background-color: #E03636; }
-		.bg-pink { background-color: #EDD0BE; }
-		.bg-blue { background-color: #25C6FC; }
 		.bg-orange{ background-color: #F2753F; }
 		.bg-yellow { background-color: #FFE957; }
 		.bg-green { background-color: #56A36C; }
+		.bg-blue { background-color: #25C6FC; }
+		.bg-pink { background-color: #EDD0BE; }
 		.bg-purple { background-color: #C3B7E5; }
+		.slide-nav {
+			position: absolute;
+			width:52px;
+			height:52px;
+			top:131px;
+			display:block;
+			z-index:100;
+			overflow:hidden;
+			cursor:pointer;
+		}
+		.slide-prev {
+			background: url(images/btn.png) left top no-repeat;
+			left: -60px
+		}
+		.slide-next {
+			background: url(images/btn.png) right top no-repeat;
+			right: -60px
+		}
+		.slide-pagination {
+			position: absolute;
+			bottom: -50px;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			overflow: hidden;
+		}
+		.slide-pagination-item {
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			*display: inline;
+			*zoom: 1;
+			background: url('images/nav.png') no-repeat center 0;
+			cursor: pointer;
+		}
+		.slide-pagination-item.active {
+			background: url('images/nav-active.png') no-repeat center 0;
+		}
 	</style>
 </head>
 <body>
 	<div class="app-demo">
-		<div class="demo demo1">
-			<div id="tinySwiper" class="tiny-swiper">
-				<div class="slide-item bg-red">1</div>
-				<div class="slide-item bg-pink">2</div>
-				<div class="slide-item bg-blue">3</div>
-				<div class="slide-item bg-orange">4</div>
-				<div class="slide-item bg-yellow">5</div>
-				<!-- <div class="slide-item bg-green">6</div>
-				<div class="slide-item bg-purple">7</div> -->
+		<div class="demo">
+			<div class="tiny-swiper">
+				<ul id="tinySwiper" class="tiny-swiper-list">
+					<li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+					<li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+					<li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+					<li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+					<li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+					<li class="slide-item bg-pink"><h1 class='h1'>6</h1></li>
+					<li class="slide-item bg-purple"><h1 class='h1'>7</h1></li>
+				</ul>
+				<div class="slide-nav slide-prev"></div>
+				<div class="slide-nav slide-next"></div>
+				<ul class="slide-pagination">
+					<li class="slide-pagination-item active"></li>
+					<li class="slide-pagination-item"></li>
+					<li class="slide-pagination-item"></li>
+					<li class="slide-pagination-item"></li>
+					<li class="slide-pagination-item"></li>
+					<li class="slide-pagination-item"></li>
+					<li class="slide-pagination-item"></li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -51,11 +115,23 @@
 	<script type="text/javascript" src="../dist/tiny-swiper.min.js"></script>
 	<script>
 		$('#tinySwiper').tinySwiper({
-			autoplay: true,
-			loop: true,
+			autoplay: false,
+			clickable: true,
+			initialIndex: 0,
+			slidesLen: 5,
+			speed: 3000,
 			slidesProps: {
 				width: 600,
 				height: 400
+			},
+			slideStart: function () {
+				console.log('滑动开始!');
+			},
+			slideEnd: function () {
+				console.log('滑动结束!');
+			},
+			click: function (order, index) {
+				console.log(order, index);
 			}
 		});
 	</script>
