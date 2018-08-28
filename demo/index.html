@@ -19,7 +19,7 @@
 		.tiny-swiper {
 			position: relative;
 		}
-		.tiny-swiper-list {
+		.swiper-list {
 			height: 400px;
 			width: 1000px;
 			position: relative;
@@ -48,7 +48,8 @@
 			position: absolute;
 			width:52px;
 			height:52px;
-			top:131px;
+			top:50%;
+			margin-top: -26px;
 			display:block;
 			z-index:100;
 			overflow:hidden;
@@ -88,7 +89,7 @@
 	<div class="app-demo">
 		<div class="demo">
 			<div class="tiny-swiper">
-				<ul id="tinySwiper" class="tiny-swiper-list">
+				<ul id="tinySwiper" class="swiper-list">
 					<li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
 					<li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
 					<li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
@@ -111,7 +112,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../lib/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../lib/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../dist/tiny-swiper.min.js"></script>
 	<script>
 		$('#tinySwiper').tinySwiper({

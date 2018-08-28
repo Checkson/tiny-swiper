@@ -2,11 +2,51 @@
 > 一个轻量，兼容IE7、IE8，3D swiper组件
 
 ## demo
-[demo](https://Checkson.github.io/tiny-swiper/)
+[demo](https://checkson.github.io/tiny-swiper/demo/index.html)
 
 ## 介绍
+tiny-swiper是一个轻量级（压缩后文件只有4.43KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件，依赖jQuery库（1.x版本）。
 
 ## 基本用法
+
+**html结构**
+```html
+    <ul id="tinySwiper" class="swiper-list">
+        <li class="slide-item">1</li>
+        <li class="slide-item">2</li>
+        <li class="slide-item">3</li>
+        <li class="slide-item">4</li>
+        <li class="slide-item">5</li>
+        <li class="slide-item">6</li>
+        <li class="slide-item">7</li>
+    </ul>
+```
+
+**CSS样式**
+```CSS
+    /* 必须要给出tiny-swiper容器的高度 */
+    .swiper-list {
+        position: relative;
+        height: 400px;
+        width: 1000px;
+    }
+    .slide-item {
+        position: absolute;
+        width: 600px;
+        height: 400px;
+    }
+```
+
+**JS声明**
+```javascript
+    $('#tinySwiper').tinySwiper({
+        autoplay: true,
+        slidesProps: {              // 必须设置的属性
+            width: 600,             // 默认值为0
+            height: 400             // 默认值为0
+        }
+    });
+```
 
 ## API
 **属性**
@@ -19,7 +59,7 @@ initialIndex | number | 0 | 默认显示的幻灯片的下标（以0开始，如
 clickable | boolean | true | 是否可以点击某个幻灯片进行切换
 slides | string | .slide-item | 每一张幻灯片的CSS类名
 slidesLen | number | 5 | 代表可视区域显示多少张幻灯片
-slidesProps | object | { width: 0, height: 0 } | *必须设置* 幻灯片的正常宽，高（单位px）
+slidesProps | object | { width: 0, height: 0 } | `必须设置` 幻灯片的正常宽，高（单位px）
 navigation | object | { prev: '.slide-prev', next: '.slide-next' } | 幻灯片向前、向后滑动的导航选择器
 pagination | object | { el: '.slide-pagination-item', activeClass: 'active' } | 分页配置，el代表分页项选择器，activeClass代表激活添加的类
 
@@ -32,7 +72,7 @@ slideEnd | 无 | 无 | 每一次幻灯片滑动完（动画结束）后触发 |
 click | order, index | 无 | 每一次点击幻灯片都会触发，函数this指向当前被点击的幻灯片的DOM，order(类型为number)是指幻灯片静态（初始）下标，index(类型为number)是指幻灯片动态（当前）下标。
 
 **详细用法:**
-[请戳这里](https://Checkson.github.io/tiny-swiper/)
+[请戳这里](https://checkson.github.io/tiny-swiper/demo/index.html)
 
 
 ## 二次开发
