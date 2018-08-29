@@ -1,51 +1,60 @@
 # tiny-swiper
-> 一个轻量，兼容IE7、IE8，3D swiper组件
+> 一个轻量，兼容IE7、IE8，3D swiper插件。
 
 ## demo
 [demo](https://checkson.github.io/tiny-swiper/demo/index.html)
 
 ## 介绍
-tiny-swiper是一个轻量级（压缩后文件只有4.43KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件，依赖jQuery库（1.x版本）。
+tiny-swiper是一个轻量级（压缩后文件只有4.56KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件。
+
+## 依赖
+[jQuery1.x](https://cdnjs.com/libraries/jquery/1.11.3)
 
 ## 基本用法
 
 **html结构**
 ```html
-    <ul id="tinySwiper" class="swiper-list">
-        <li class="slide-item">1</li>
-        <li class="slide-item">2</li>
-        <li class="slide-item">3</li>
-        <li class="slide-item">4</li>
-        <li class="slide-item">5</li>
-        <li class="slide-item">6</li>
-        <li class="slide-item">7</li>
-    </ul>
+<!-- 依赖引入 -->
+<script type="text/javascript" src="${yourPath}/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="${yourPath}/tiny-swiper.min.js"></script>
+
+
+<ul id="tinySwiper" class="swiper-list">
+    <li class="slide-item">1</li>
+    <li class="slide-item">2</li>
+    <li class="slide-item">3</li>
+    <li class="slide-item">4</li>
+    <li class="slide-item">5</li>
+    <li class="slide-item">6</li>
+    <li class="slide-item">7</li>
+</ul>
 ```
 
 **CSS样式**
 ```CSS
-    /* 必须要给出tiny-swiper容器的高度 */
-    .swiper-list {
-        position: relative;
-        height: 400px;
-        width: 1000px;
-    }
-    .slide-item {
-        position: absolute;
-        width: 600px;
-        height: 400px;
-    }
+/* 必须要给出swiper容器的高度，宽度可以自适应父容器宽度（100%） */
+.swiper-list {
+    position: relative;
+    height: 400px;
+    width: 1000px;
+}
+/* 幻灯片的宽高，可以不设置 */
+.slide-item {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+}
 ```
 
 **JS声明**
 ```javascript
-    $('#tinySwiper').tinySwiper({
-        autoplay: true,
-        slidesProps: {              // 必须设置的属性
-            width: 600,             // 默认值为0
-            height: 400             // 默认值为0
-        }
-    });
+$('#tinySwiper').tinySwiper({
+    autoplay: true,
+    slidesProps: {              // 必须设置的属性
+        width: 600,             // 默认值为0
+        height: 400             // 默认值为0
+    }
+});
 ```
 
 ## API
@@ -58,7 +67,7 @@ speed | number | 3000 | 单位（ms），自动播放相隔的时间，建议至
 initialIndex | number | 0 | 默认显示的幻灯片的下标（以0开始，如果为负数，例如-1，则代表倒数第1个，以此类推）
 clickable | boolean | true | 是否可以点击某个幻灯片进行切换
 slides | string | .slide-item | 每一张幻灯片的CSS类名
-slidesLen | number | 5 | 代表可视区域显示多少张幻灯片
+slidesLen | number | 5 | `建议设置` 代表可视区域显示多少张幻灯片
 slidesProps | object | { width: 0, height: 0 } | `必须设置` 幻灯片的正常宽，高（单位px）
 navigation | object | { prev: '.slide-prev', next: '.slide-next' } | 幻灯片向前、向后滑动的导航选择器
 pagination | object | { el: '.slide-pagination-item', activeClass: 'active' } | 分页配置，el代表分页项选择器，activeClass代表激活添加的类

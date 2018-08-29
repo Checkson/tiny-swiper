@@ -48,11 +48,14 @@
 		var _this = this;
 		var options = this.options;
 
+		this.$el.css('position') === 'static' && this.$el.css('position', 'relative');
+
 		this.$slides = [];
 		$(options.slides).each(function (idx) {
 			var $this = $(this);
+			$this.css('position') === 'static' && $(this).css('position', 'absolute');
 			$this.data('order', idx);
-			_this.$slides.push($this)
+			_this.$slides.push($this);
 		});
 
 		this.$pages = options.pagination.el ? $(options.pagination.el) : undefined;
