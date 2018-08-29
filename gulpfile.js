@@ -6,6 +6,9 @@ const gulp = require('gulp'),
 			notify = require('gulp-notify'),
 			livereload = require('gulp-livereload'),
 			clean = require('gulp-clean'),
+			sass = require('gulp-sass'),
+			prefixer = require('gulp-autoprefixer'),
+			minify = require('gulp-minify-css')
 			connect = require('gulp-connect');
 
 gulp.task('minify-js', function () {
@@ -20,8 +23,25 @@ gulp.task('minify-js', function () {
 				.pipe(gulp.dest('dist/'))
 				.pipe(connect.reload())
 				.pipe(notify({
-					message: 'Gulp bundle is running...'
+					message: 'Tiny Swiper is being packed...'
 				}));
+});
+
+gulp.task('minify-css', function () {
+	return gulp.src('demo/scss/*.scss')
+						.pipe(sass())
+						.pipe(prefixer('last 2 versions'))
+						.pipe(minify())
+						.pipe(gulp.dest('demo/css'))
+						.pipe(concat('styles.css'))
+						.pipe(rename({
+							basename: 'styles',
+							suffix: '.min'
+						}))
+						.pipe(connect.reload())
+						.pipe(notify({
+							message: 'Scss is being packed...'
+						}));
 });
 
 gulp.task('webServer', function () {
@@ -32,17 +52,18 @@ gulp.task('webServer', function () {
 });
 
 gulp.task('clean', function (cb){
-	return gulp.src(['dist/'])
+	return gulp.src(['dist/', 'demo/css/'])
 				.pipe(clean());
 });
 
 gulp.task('default', ['clean'], function () {
-	gulp.start('minify-js');
+	gulp.start(['minify-js', 'minify-css']);
 });
 
 gulp.task('watch', function () {
 	gulp.start('webServer');
 	gulp.watch('src/*.js', ['minify-js']);
+	gulp.watch('demo/scss/*.scss', ['minify-css']);
 	livereload.listen();
 	gulp.watch(['dist/**']).on('change', livereload.changed);
 });
