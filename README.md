@@ -5,7 +5,7 @@
 [demo](https://checkson.github.io/tiny-swiper/demo/index.html)
 
 ## 介绍
-tiny-swiper是一个轻量级（压缩后文件只有4.56KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件。
+tiny-swiper是一个轻量级（压缩后文件只有4.53KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件。
 
 ## 依赖
 [jQuery1.x](https://cdnjs.com/libraries/jquery/1.11.3)

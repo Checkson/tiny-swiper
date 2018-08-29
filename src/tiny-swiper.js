@@ -206,13 +206,11 @@
 	};
 
 	TinySwiper.prototype.doPrev = function () {
-		this.$slides.unshift(this.$slides.pop());
-		this.setUp();
+		this.doChange(this.centerIndex - 1);
 	};
 
 	TinySwiper.prototype.doNext = function () {
-		this.$slides.push(this.$slides.shift());
-		this.setUp();
+		this.doChange(this.centerIndex + 1);
 	};
 
 	TinySwiper.prototype.doChange = function (index) {
