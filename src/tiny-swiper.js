@@ -4,12 +4,12 @@
  */
 ;(function ($) {
 
-	function TinySwiper (el, options) {
-		this.options = options;
-		this.$el = $(el);
-		this.timer = null;
-	 	this.init();
-	}
+  function TinySwiper (el, options) {
+    this.options = options;
+    this.$el = $(el);
+    this.timer = null;
+    this.init();
+  }
 
 	TinySwiper.DEFAULTS = {
 		autoplay: false,
@@ -140,7 +140,6 @@
         flag = false;
       })
     }
-
   };
 
 	TinySwiper.prototype.initNavigation = function () {
@@ -178,7 +177,7 @@
 				});
 			});
 		}
-	
+
 	};
 
 	TinySwiper.prototype.product3DSlidesProps = function () {
