@@ -4,3 +4,56 @@
 	padding: 0;
 	margin: 0;
 }
+
+ul {
+	list-style: none;
+}
+
+li {
+	list-style-type: none
+}
+
+html, body {
+	font-family: "Comic Sans MS","cursive","Microsoft YaHei";
+	font-size: $fontSizeBase;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.inner {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.bg {
+	&-red {
+		background-color: $red;
+	}
+	&-orange {
+		background-color: $orange;
+	}
+	&-yellow {
+		background-color: $yellow;
+	}
+	&-green {
+		background-color: $green;
+	}
+	&-blue {
+		background-color: $blue;
+	}
+	&-pink {
+		background-color: $pink;
+	}
+	&-purple {
+		background-color: $purple;
+	}
+}
+
+.h1 {
+	font-size: 2 * $fontSizeLarge;
+	color: $white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -24px 0 0 -24px;
+}

@@ -1,0 +1,137 @@
+
+@import '_variables.scss';
+@import '_mixins.scss';
+
+.app {
+	position: relative;
+	background-color: $white;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+    z-index: 2018;
+	box-shadow: 1px 1px 5px $shadowColor;
+    border-bottom: 1px solid $borderColor;
+	background-color: $white;
+	&-inner {
+		height: $navHeight;
+		line-height: $navHeight;
+	}
+	.logo {
+      width: 30px;
+      vertical-align: middle;
+      @include inline-block();
+      &-text {
+        @include inline-block();
+        vertical-align: middle;
+        font-size: $fontSizeCaption;
+        font-weight: bold;
+        color: $primary;
+      }
+	}
+}
+
+.content {
+	padding-top: $navHeight;
+}
+
+.demo-list {
+	display: block;
+	padding-top: 30px;
+}
+
+.demo {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	box-shadow: 1px 1px 5px 1px $shadowColor;
+	border-radius: 5px;
+	border: 1px solid $borderColor;
+}
+
+.demo-header {
+	font-size: $fontSizeLarge;
+	padding: 15px 30px;
+}
+
+.tiny-swiper {
+	position: relative;
+}
+
+.swiper-list {
+	position: relative;
+	height: 300px;
+	width: 800px;
+	margin: 0 auto;
+}
+
+.slide-item {
+	position: absolute;
+	width: 500px;
+	height: 300px;
+}
+
+.code-inner {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.code-header {
+	margin: 1em 0 0.5em;
+	font-size: $fontSizeMiddle;
+}
+
+.code-content {
+  border-radius: 3px;
+  border: 1px solid $borderColor;
+  background-color: $codeBgColor;
+}
+
+.slide-nav {
+  position: absolute;
+  width:52px;
+  height:52px;
+  top:40%;
+  margin-top: -26px;
+  display:block;
+  z-index:100;
+  overflow:hidden;
+  cursor:pointer;
+  transition: all .1s linear;
+}
+
+.slide-prev {
+  background: url('../images/nav-btn.png') left top no-repeat;
+  left: 20px;
+  &:active {
+    transform: translateX(-5px) scale(0.95);
+  }
+}
+
+.slide-next {
+  background: url('../images/nav-btn.png') right top no-repeat;
+  right: 20px;
+  &:active {
+    transform: translateX(5px) scale(0.95);
+  }
+}
+
+.slide-pagination {
+  padding-top: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.slide-page-item {
+  width: 20px;
+  height: 20px;
+  @include inline-block();
+  background: url('../images/page-item.png') no-repeat center 0;
+  cursor: pointer;
+}
+
+.slide-page-item.active {
+  background: url('../images/page-item-active.png') no-repeat center 0;
+}

@@ -8,40 +8,341 @@
 	<meta name="author" content="Checkson"/>
 	<title>Tiny Swiper</title>
 	<link rel="icon" href="images/favicon.png" type="image/x-icon"/>
-	<link rel="stylesheet" href="css/styles.css"/>
+	<link rel="stylesheet" href="css/styles.min.css"/>
+	<link rel="stylesheet" href="../lib/prism.min.css"/>
+  <style type="text/css">.slide-page-item,.header .logo-text{*zoom:1;*display:inline;}</style>
 </head>
 <body>
-	<div class="app-demo">
+	<div class="app app-demo">
 		<div class="header">
-			
-		</div>
-		<div class="demo">
-			<div class="tiny-swiper">
-				<ul id="tinySwiper" class="swiper-list">
-					<li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
-					<li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
-					<li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
-					<li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
-					<li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
-					<li class="slide-item bg-pink"><h1 class='h1'>6</h1></li>
-					<li class="slide-item bg-purple"><h1 class='h1'>7</h1></li>
-				</ul>
-				<div class="slide-nav slide-prev"></div>
-				<div class="slide-nav slide-next"></div>
-				<ul class="slide-pagination">
-					<li class="slide-pagination-item active"></li>
-					<li class="slide-pagination-item"></li>
-					<li class="slide-pagination-item"></li>
-					<li class="slide-pagination-item"></li>
-					<li class="slide-pagination-item"></li>
-					<li class="slide-pagination-item"></li>
-					<li class="slide-pagination-item"></li>
-				</ul>
+			<div class="header-inner inner">
+				<img class="logo" src="images/logo.png" alt="Tiny Swiper"/>
+				<h1 class="logo-text">Tiny Swiper</h1>
 			</div>
 		</div>
+		<div class="content">
+			<div class="demo-list inner">
+				<div class="demo demo1">
+					<h2 class="demo-header">一. 基本使用</h2>
+					<div class="tiny-swiper">
+						<ul id="tinySwiper1" class="swiper-list">
+							<li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+							<li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+							<li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+							<li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+							<li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+						</ul>
+					</div>
+					<div class="tiny-swiper-code">
+						<div class="code-inner inner">
+							<h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper1&quot; class=&quot;swiper-list&quot;&gt;
+    &lt;li class=&quot;slide-item bg-red&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;1&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-orange&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;2&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-yellow&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;3&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-green&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;4&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-blue&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;5&lt;/h1&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">JS代码示例</h3>
+							<div class="code-content">
+								<pre><code class="language-javascript"> // 基本使用
+$('#tinySwiper1').tinySwiper({
+  // slides: '.slide-item',   // 幻灯片选择器（非全局搜索） 默认 .slide-item
+  slidesProps: {              // 必须设置的幻灯片宽、高属性
+    width: 500,
+    height: 300
+  }
+});
+// 其余幻灯片大小和定位，都会自动计算
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="demo demo2">
+					<h2 class="demo-header">二. 自动轮播</h2>
+					<div class="tiny-swiper">
+						<ul id="tinySwiper2" class="swiper-list">
+							<li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+							<li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+							<li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+							<li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+							<li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+						</ul>
+					</div>
+					<div class="tiny-swiper-code">
+						<div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper2&quot; class=&quot;swiper-list&quot;&gt;
+    &lt;li class=&quot;slide-item bg-red&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;1&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-orange&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;2&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-yellow&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;3&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-green&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;4&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-blue&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;5&lt;/h1&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+							<h3 class="code-header">JS代码示例</h3>
+							<div class="code-content">
+								<pre><code class="language-javascript"> // 自动轮播
+$('#tinySwiper2').tinySwiper({
+  autoplay: true,
+  speed: 5000,   // 默认为3000， 建议设置至少为1000
+  slidesProps: {
+    width: 500,
+    height: 300
+  }
+});
+</code></pre>
+							</div>
+						</div>
+					</div>
+				</div>
+        <div class="demo demo3">
+          <h2 class="demo-header">三. 自定义初始化幻灯片聚焦下标</h2>
+          <div class="tiny-swiper">
+            <ul id="tinySwiper3" class="swiper-list">
+              <li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+              <li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+              <li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+              <li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+              <li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+            </ul>
+          </div>
+          <div class="tiny-swiper-code">
+            <div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper3&quot; class=&quot;swiper-list&quot;&gt;
+    &lt;li class=&quot;slide-item bg-red&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;1&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-orange&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;2&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-yellow&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;3&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-green&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;4&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-blue&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;5&lt;/h1&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-javascript"> // 自定义初始化幻灯片聚焦下标
+$('#tinySwiper3').tinySwiper({
+  initialIndex: 2,  // 以0开始，如果为负数，例如-1就代表倒数第1个，以此类推
+  slidesProps: {
+    width: 500,
+    height: 300
+  }
+});
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo demo4">
+          <h2 class="demo-header">四. 导航设置与分页&设置幻灯片显示数</h2>
+          <div class="tiny-swiper">
+            <ul id="tinySwiper4" class="swiper-list">
+              <li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+              <li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+              <li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+              <li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+              <li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+              <li class="slide-item bg-pink"><h1 class='h1'>6</h1></li>
+              <li class="slide-item bg-purple"><h1 class='h1'>7</h1></li>
+            </ul>
+            <div class="slide-nav slide-prev"></div>
+            <div class="slide-nav slide-next"></div>
+            <ul class="slide-pagination">
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+              <li class="slide-page-item"></li>
+            </ul>
+          </div>
+          <div class="tiny-swiper-code">
+            <div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper4&quot; class=&quot;swiper-list&quot;&gt;
+    &lt;li class=&quot;slide-item bg-red&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;1&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-orange&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;2&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-yellow&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;3&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-green&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;4&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-blue&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;5&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-pink&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;6&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-purple&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;7&lt;/h1&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div class=&quot;slide-nav slide-prev&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;slide-nav slide-next&quot;&gt;&lt;/div&gt;
+  &lt;ul class=&quot;slide-pagination&quot;&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-page-item&quot;&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">JS代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-javascript"> // 导航设置与分页&设置幻灯片显示数
+$('#tinySwiper4').tinySwiper({
+  slidesLen: 5,                   // 轮播图显示数 默认:5 必须为奇数
+  slidesProps: {
+    width: 500,
+    height: 300
+  },
+  navigation: {
+    prev: '.slide-prev',          // 向前轮播选择器 默认 无
+    next: '.slide-next'           // 向后轮播选择器 默认 无
+  },
+  pagination: {
+    el: '.slide-page-item',       // 分页选项选择器 默认 无
+    activeClass: 'active'         // 分页选项激活添加的类名 默认 无
+  }
+});
+// 注意，由于导航和分页选择器都是全局搜索的，应保持每个swiper中导航和分页选择器之间的独立性。
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo demo5">
+          <h2 class="demo-header">五. 回调函数</h2>
+          <div class="tiny-swiper">
+            <ul id="tinySwiper5" class="swiper-list">
+              <li class="slide-item bg-red"><h1 class='h1'>1</h1></li>
+              <li class="slide-item bg-orange"><h1 class='h1'>2</h1></li>
+              <li class="slide-item bg-yellow"><h1 class='h1'>3</h1></li>
+              <li class="slide-item bg-green"><h1 class='h1'>4</h1></li>
+              <li class="slide-item bg-blue"><h1 class='h1'>5</h1></li>
+            </ul>
+          </div>
+          <div class="tiny-swiper-code">
+            <div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper5&quot; class=&quot;swiper-list&quot;&gt;
+    &lt;li class=&quot;slide-item bg-red&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;1&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-orange&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;2&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-yellow&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;3&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-green&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;4&lt;/h1&gt;&lt;/li&gt;
+    &lt;li class=&quot;slide-item bg-blue&quot;&gt;&lt;h1 class=&#x27;h1&#x27;&gt;5&lt;/h1&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">JS代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-javascript"> // 回调函数
+$('#tinySwiper5').tinySwiper({
+  slidesLen: 3,                      // 轮播图显示数 默认:5 必须为奇数
+  slidesProps: {
+    width: 500,
+    height: 300
+  },
+  slideStart: function (el) {         // this指向swiper容器, el为将要聚焦的幻灯片DOM元素
+    console.log('开始滑动');
+  },
+  slideEnd: function (el) {            // this指向swiper容器，el为已经聚焦的幻灯片DOM元素
+    console.log('开始结束');
+  },
+  click: function (order, index) {
+    console.log(this)                // 当前被点击幻灯片的DOM
+    console.log(order, index)        // 静态下标、动态下标
+  }
+});
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+			</div>
+    </div>
 	</div>
 	<script type="text/javascript" src="../lib/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../lib/prism.min.js"></script>
 	<script type="text/javascript" src="../dist/tiny-swiper.min.js"></script>
+	<script type="text/javascript">
+		// demo1 --- 基本使用
+		$('#tinySwiper1').tinySwiper({
+			slidesProps: {
+				width: 500,
+				height: 300
+			}
+		});
+		// demo2 --- 自动播放
+		$('#tinySwiper2').tinySwiper({
+			autoplay: true,
+			speed: 5000,  // 默认为3000， 建议设置至少为1000
+			slidesProps: {
+				width: 500,
+				height: 300
+			}
+		});
+    // demo3 --- 自定义初始化幻灯片聚焦下标
+    $('#tinySwiper3').tinySwiper({
+      initialIndex: 2,  // 以0开始，如果为负数，例如-1就代表倒数第1个，以此类推
+      slidesProps: {
+        width: 500,
+        height: 300
+      }
+    });
+    // demo4 --- 导航设置与分页 & 设置幻灯片显示数
+    $('#tinySwiper4').tinySwiper({
+      slidesLen: 3,
+      slidesProps: {
+        width: 500,
+        height: 300
+      },
+      navigation: {
+        prev: '.slide-prev',
+        next: '.slide-next'
+      },
+      pagination: {
+        el: '.slide-page-item',
+        activeClass: 'active'
+      }
+    });
+    // demo5 --- 回调函数
+    $('#tinySwiper5').tinySwiper({
+      slidesLen: 3,                   // 轮播图显示数 默认 5
+      slidesProps: {
+        width: 500,
+        height: 300
+      },
+      slideStart: function (el) {
+        // console.log(this);
+        // console.log(el);
+        console.log('开始滑动');
+      },
+      slideEnd: function (el) {
+        // console.log(this);
+        // console.log(el);
+        console.log('开始结束');
+      },
+      click: function (order, index) {
+        console.log(this);
+        console.log(order, index);
+      }
+    });
+	</script>
 </body>
 </html>

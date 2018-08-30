@@ -30,14 +30,14 @@ gulp.task('minify-js', function () {
 gulp.task('minify-css', function () {
 	return gulp.src('demo/scss/*.scss')
 						.pipe(sass())
-						.pipe(prefixer('last 2 versions'))
+						// .pipe(prefixer('last 2 versions'))
 						.pipe(minify())
-						.pipe(gulp.dest('demo/css'))
 						.pipe(concat('styles.css'))
 						.pipe(rename({
 							basename: 'styles',
 							suffix: '.min'
 						}))
+						.pipe(gulp.dest('demo/css'))
 						.pipe(connect.reload())
 						.pipe(notify({
 							message: 'Scss is being packed...'
@@ -51,7 +51,7 @@ gulp.task('webServer', function () {
 	});
 });
 
-gulp.task('clean', function (cb){
+gulp.task('clean', function (){
 	return gulp.src(['dist/', 'demo/css/'])
 				.pipe(clean());
 });
@@ -65,5 +65,5 @@ gulp.task('watch', function () {
 	gulp.watch('src/*.js', ['minify-js']);
 	gulp.watch('demo/scss/*.scss', ['minify-css']);
 	livereload.listen();
-	gulp.watch(['dist/**']).on('change', livereload.changed);
+	gulp.watch(['dist/**', 'demo/css/**']).on('change', livereload.changed);
 });

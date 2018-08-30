@@ -16,6 +16,7 @@
 		speed: 3000,
 		initialIndex: 0,
 		clickable: true,
+    touchable: true,
 		slides: '.slide-item',
 		slidesLen: 5,
 		slidesProps: {
@@ -23,12 +24,12 @@
 			height: 0
 		},
 		navigation: {
-			prev: '.slide-prev',
-			next: '.slide-next'
+			prev: '',
+			next: ''
 		},
 		pagination: {
-			el: '.slide-pagination-item',
-			activeClass: 'active'
+			el: '',
+			activeClass: ''
 		},
 		slideStart: function () {},
 		slideEnd: function () {},
@@ -39,6 +40,7 @@
 		this.initSlides();
 		this.initAutoPlay();
 		this.initClickable();
+		this.touchable();
 		this.initNavigation();
 		this.initPagination();
 	};
@@ -51,7 +53,7 @@
 		this.$el.css('position') === 'static' && this.$el.css('position', 'relative');
 
 		this.$slides = [];
-		$(options.slides).each(function (idx) {
+		this.$el.find(options.slides).each(function (idx) {
 			var $this = $(this);
 			$this.css('position') === 'static' && $(this).css('position', 'absolute');
 			$this.data('order', idx);
@@ -60,46 +62,13 @@
 
 		this.$pages = options.pagination.el ? $(options.pagination.el) : undefined;
 
-		this.visualLen = Math.min(options.slidesLen, this.$slides.length);
+		this.visualLen = Math.abs(Math.min(options.slidesLen, this.$slides.length));
 		this.firstVisit = true;
 		this.animationFinishNum = 0;
+    this.slidesOptions = [];
 
-		var scale = parseInt(this.visualLen) * 2;
-
-		this.slidesOptions = [];
-		this.centerIndex = Math.floor(this.visualLen / 2);
-
-		var cw = this.$el.width(),
-		 		ch = this.$el.height();
- 		var sw = options.slidesProps.width,
- 				sh = options.slidesProps.height;
-		var unitW = sw / (scale * 1.0),
-				unitH = sh / (scale * 1.0);
-		var disW = Math.floor((cw - sw) / (2 * this.centerIndex)),
-				disH = Math.floor((ch - sh) / (2 * this.centerIndex));
-
-		for(var i = 0; i < this.visualLen; i++) {
-
-			var dis = Math.abs(this.centerIndex - i);
-
-			var width = Math.floor((unitW * (scale - dis))),
-					height = Math.floor((unitH * (scale - dis))),
-					top = Math.floor(dis * unitH / 2 + disH * 2),
-					left = i <= this.centerIndex ?
-									Math.floor(i * disW) : 
-									Math.floor(cw - (this.centerIndex - dis) * disW - width),
-					zIndex = this.centerIndex - dis + 1;
-
-			this.slidesOptions.push({
-				width: width,
-				height: height,
-				top: top,
-				left: left,
-				zIndex: zIndex
-			});
-		}
-
-		this.resetPostion();
+    this.product3DSlidesProps();
+		this.resetPosition();
 		this.setUp();
 
 	};
@@ -122,7 +91,6 @@
 				}, options.speed);
 			});
 		}
-
 	};
 
 	TinySwiper.prototype.initClickable = function () {
@@ -135,11 +103,45 @@
 				this.$slides[k].on('click', function () {
 					var index = $(this).index();
 					_this.doChange(index);
-					options.click.call(this, parseInt($(this).data('order')), index);
+					_this.options.click.call(this, parseInt($(this).data('order')), index);
 				});
 			}	
 		}
 	};
+
+	TinySwiper.prototype.touchable = function () {
+
+	  var _this = this;
+    var options = this.options;
+    var startX, flag = false;
+
+    if (options.touchable) {
+      this.$el.on('touchstart mousedown', function (e) {
+        e.preventDefault();
+        startX = e.clientX || e.originalEvent.changedTouches[0].clientX;
+        flag = true;
+      }).on('touchmove mousemove', function (e) {
+        e.preventDefault();
+        if (!flag) {
+          return false;
+        }
+      }).on('touchend mouseup', function (e) {
+        e.preventDefault();
+        if (!flag) {
+          return false;
+        }
+        var clientX = e.clientX || e.originalEvent.changedTouches[0].clientX;
+        var disX = parseInt(clientX- startX);
+        if (disX > 0) {
+          _this.doPrev();
+        } else if (disX < 0) {
+          _this.doNext();
+        }
+        flag = false;
+      })
+    }
+
+  };
 
 	TinySwiper.prototype.initNavigation = function () {
 
@@ -161,7 +163,6 @@
 	TinySwiper.prototype.initPagination = function () {
 
 		var _this = this;
-		var options = this.options;
 
 		if (this.$pages) {
 			this.$pages.each(function (idx) {
@@ -180,9 +181,46 @@
 	
 	};
 
-	TinySwiper.prototype.resetPostion = function () {
+	TinySwiper.prototype.product3DSlidesProps = function () {
 
-		var _this = this;
+    var options = this.options;
+    var scale = parseInt(this.visualLen) * 2;
+
+    this.centerIndex = Math.floor(this.visualLen / 2);
+
+    var cw = this.$el.width(),
+        ch = this.$el.height();
+    var sw = options.slidesProps.width,
+        sh = options.slidesProps.height;
+    var unitW = sw / (scale * 1.0),
+        unitH = sh / (scale * 1.0);
+    var disW = Math.floor((cw - sw) / (2 * this.centerIndex)),
+        disH = Math.floor((ch - sh) / (2 * this.centerIndex));
+
+    for(var i = 0; i < this.visualLen; i++) {
+
+      var dis = Math.abs(this.centerIndex - i);
+
+      var width = Math.floor((unitW * (scale - dis))),
+          height = Math.floor((unitH * (scale - dis))),
+          top = Math.floor(dis * unitH / 2 + disH * 2),
+          left = i <= this.centerIndex ?
+                        Math.floor(i * disW) :
+                        Math.floor(cw - (this.centerIndex - dis) * disW - width),
+          zIndex = this.centerIndex - dis + 1;
+
+      this.slidesOptions.push({
+        width: width,
+        height: height,
+        top: top,
+        left: left,
+        zIndex: zIndex
+      });
+    }
+  };
+
+	TinySwiper.prototype.resetPosition = function () {
+
 		var options = this.options;
 
 		var	total = this.$slides.length,
@@ -225,7 +263,7 @@
 			}
 			this.setUp();
 		}
-	}
+	};
 
 	TinySwiper.prototype.setUp = function () {
 
@@ -237,7 +275,7 @@
 		}
 
 		if (!this.firstVisit) {
-			options.slideStart.call(null);
+			_this.options.slideStart.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
 		}
 
 		this.animationFinishNum = 0;
@@ -255,7 +293,7 @@
 							_this.$pages.eq(tempIndex).addClass(activeClass).siblings().removeClass(activeClass);
 						}
 						if (!this.firstVisit) {
-							options.slideEnd.call(null);
+							_this.options.slideEnd.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
 						} else {
 							this.firstVisit = false;
 						}
@@ -274,7 +312,6 @@
 
 	TinySwiper.prototype.doMove = function ($el, attrs, callback) {
 		var _this = this;
-		var options = this.options;
 		clearInterval($el.timer);
 		$el.timer = setInterval (function () {
 			var isStop = true;

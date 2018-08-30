@@ -66,18 +66,19 @@ autoplay | boolean | false | 是否自动播放
 speed | number | 3000 | 单位（ms），自动播放相隔的时间，建议至少设置为1000
 initialIndex | number | 0 | 默认显示的幻灯片的下标（以0开始，如果为负数，例如-1，则代表倒数第1个，以此类推）
 clickable | boolean | true | 是否可以点击某个幻灯片进行切换
+touchable | boolean | true | 是否可以滑动幻灯片进行切换
 slides | string | .slide-item | 每一张幻灯片的CSS类名
 slidesLen | number | 5 | `建议设置` 代表可视区域显示多少张幻灯片
 slidesProps | object | { width: 0, height: 0 } | `必须设置` 幻灯片的正常宽，高（单位px）
-navigation | object | { prev: '.slide-prev', next: '.slide-next' } | 幻灯片向前、向后滑动的导航选择器
-pagination | object | { el: '.slide-pagination-item', activeClass: 'active' } | 分页配置，el代表分页项选择器，activeClass代表激活添加的类
+navigation | object | { prev: '', next: '' } | 幻灯片向前、向后滑动的导航选择器
+pagination | object | { el: '', activeClass: '' } | 分页配置，el代表分页项选择器，activeClass代表激活添加的类
 
 **回调方法**
 
 名称 | 参数 | 返回值 | 描述
 :---: | :---: | :---: | :---: |
-slideStart | 无 | 无 | 每一次幻灯片滑动之前触发 |
-slideEnd | 无 | 无 | 每一次幻灯片滑动完（动画结束）后触发 |
+slideStart | el | 无 | 每一次幻灯片滑动之前触发, el为将要聚焦的幻灯片的DOM |
+slideEnd | el | 无 | 每一次幻灯片滑动完（动画结束）后触发, el为已经聚焦的幻灯片的DOM |
 click | order, index | 无 | 每一次点击幻灯片都会触发，函数this指向当前被点击的幻灯片的DOM，order(类型为number)是指幻灯片静态（初始）下标，index(类型为number)是指幻灯片动态（当前）下标。
 
 **详细用法:**

@@ -1,0 +1,7 @@
+@mixin inline-block() {
+  display: inline-block;
+  _zoom: 1;
+  *zoom: 1;
+  _display: inline;
+  *display: inline;
+}
