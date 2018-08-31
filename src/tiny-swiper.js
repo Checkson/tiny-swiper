@@ -31,16 +31,16 @@
 			el: '',
 			activeClass: ''
 		},
-		slideStart: function () {},
-		slideEnd: function () {},
-		click: function (order, index) {}
+		onSlideStart: function () {},
+		onSlideEnd: function () {},
+		onClick: function (order, index) {}
 	};
 
 	TinySwiper.prototype.init = function () {
 		this.initSlides();
 		this.initAutoPlay();
 		this.initClickable();
-		this.touchable();
+		this.initTouchable();
 		this.initNavigation();
 		this.initPagination();
 	};
@@ -62,7 +62,6 @@
 
 		this.$pages = options.pagination.el ? $(options.pagination.el) : undefined;
 
-		this.visualLen = Math.abs(Math.min(options.slidesLen, this.$slides.length));
 		this.firstVisit = true;
 		this.animationFinishNum = 0;
     this.slidesOptions = [];
@@ -97,19 +96,18 @@
 
 		var _this = this;
 		var options = this.options;
+		var $document = $(document);
 
 		if (options.clickable) {
-			for (var k = 0, len = this.$slides.length; k < len; k++) {
-				this.$slides[k].on('click', function () {
-					var index = $(this).index();
-					_this.doChange(index);
-					_this.options.click.call(this, parseInt($(this).data('order')), index);
-				});
-			}	
+			$document.on('click', options.slides, function () {
+        var index = $(this).index();
+        _this.doChange(index);
+        _this.options.onClick.call(this, parseInt($(this).data('order')), index);
+      });
 		}
 	};
 
-	TinySwiper.prototype.touchable = function () {
+	TinySwiper.prototype.initTouchable = function () {
 
 	  var _this = this;
     var options = this.options;
@@ -183,38 +181,83 @@
 	TinySwiper.prototype.product3DSlidesProps = function () {
 
     var options = this.options;
-    var scale = parseInt(this.visualLen) * 2;
 
-    this.centerIndex = Math.floor(this.visualLen / 2);
+    this.visualLen = Math.abs(Math.min(options.slidesLen, this.$slides.length));
+    this.slideable = true;
+    this.normalStatus = false;
+    this.specialCase = false;
+
+    this.centerIndex = Math.floor(this.visualLen / 2) || 1;
+
+    if (this.visualLen <= 1) {
+      this.normalStatus = true;
+      this.$el.css('overflow', 'hidden');
+      if (this.$slides.length === 1) {
+        this.slideable = false;
+        this.centerIndex = 0;
+        this.visualLen = 1;
+      } else {
+        if (this.$slides.length === 2) this.specialCase = true;
+        this.visualLen = 3;
+      }
+    }
+
+    var scale = parseInt(this.visualLen) * 2;
+    var slideWidth = options.slidesProps.width;
+    var slideHeight = options.slidesProps.height;
 
     var cw = this.$el.width(),
         ch = this.$el.height();
-    var sw = options.slidesProps.width,
-        sh = options.slidesProps.height;
-    var unitW = sw / (scale * 1.0),
-        unitH = sh / (scale * 1.0);
-    var disW = Math.floor((cw - sw) / (2 * this.centerIndex)),
-        disH = Math.floor((ch - sh) / (2 * this.centerIndex));
+    var sw = typeof slideWidth === 'number' ? slideWidth : cw * parseInt(slideWidth) / 100.0,
+        sh = typeof slideHeight === 'number' ? slideHeight : ch * parseInt(slideHeight) / 100.0;
+    var width, height, top, left, zIndex, dis;
 
-    for(var i = 0; i < this.visualLen; i++) {
+    if (!this.normalStatus) {
 
-      var dis = Math.abs(this.centerIndex - i);
+      var unitW = sw / (scale * 1.0),
+          unitH = sh / (scale * 1.0);
+      var disW = Math.floor((cw - sw) / (2 * this.centerIndex)),
+          disH = Math.floor((ch - sh) / (2 * this.centerIndex));
 
-      var width = Math.floor((unitW * (scale - dis))),
-          height = Math.floor((unitH * (scale - dis))),
-          top = Math.floor(dis * unitH / 2 + disH * 2),
-          left = i <= this.centerIndex ?
-                        Math.floor(i * disW) :
-                        Math.floor(cw - (this.centerIndex - dis) * disW - width),
-          zIndex = this.centerIndex - dis + 1;
+      for(var i = 0; i < this.visualLen; i++) {
 
-      this.slidesOptions.push({
-        width: width,
-        height: height,
-        top: top,
-        left: left,
-        zIndex: zIndex
-      });
+        dis = Math.abs(this.centerIndex - i);
+        width = Math.floor((unitW * (scale - dis)));
+        height = Math.floor((unitH * (scale - dis)));
+        top = Math.floor(dis * unitH / 2 + disH * 2);
+        left = i <= this.centerIndex ?
+               Math.floor(i * disW) :
+               Math.floor(cw - (this.centerIndex - dis) * disW - width);
+        zIndex = this.centerIndex - dis + 1;
+
+        this.slidesOptions.push({
+          width: width,
+          height: height,
+          top: top,
+          left: left,
+          zIndex: zIndex
+        });
+      }
+    } else {
+
+      for(var i = 0; i < this.visualLen; i++) {
+
+        dis = Math.abs(this.centerIndex - i);
+        width = Math.floor(sw);
+        height = Math.floor(sh);
+        top = Math.floor((ch - sh) / 2);
+        left = (i - this.centerIndex) * cw + Math.floor((cw - sw) / 2);
+        zIndex = this.centerIndex - dis + 1;
+
+        this.slidesOptions.push({
+          width: width,
+          height: height,
+          top: top,
+          left: left,
+          zIndex: zIndex
+        });
+
+      }
     }
   };
 
@@ -240,6 +283,12 @@
 			}
 		}
 
+		// 特殊处理只有两个幻灯片的情况
+		if (this.specialCase) {
+      var $cloneEl = this.$slides[0].clone();
+      this.$slides.push($cloneEl);
+    }
+
 	};
 
 	TinySwiper.prototype.doPrev = function () {
@@ -251,20 +300,34 @@
 	};
 
 	TinySwiper.prototype.doChange = function (index) {
+	  if (!this.slideable || index === this.centerIndex && index > -1) {
+	    return false;
+    }
 		if (index > this.centerIndex) {
 			for (var i = 0; i < index - this.centerIndex; i++) {
 				this.$slides.push(this.$slides.shift());
 			}
-			this.setUp();
-		} else if (index >= 0 && index < this.centerIndex) {
+			// 处理特殊情况
+			if (this.specialCase) {
+			  var $cloneEl = this.$slides[0].clone();
+        (this.$slides.pop()).remove();
+			  this.$slides.push($cloneEl);
+      }
+		} else if (index < this.centerIndex) {
 			for (var i = 0; i < this.centerIndex - index; i++) {
 				this.$slides.unshift(this.$slides.pop());
 			}
-			this.setUp();
+      // 处理特殊情况
+      if (this.specialCase) {
+        var $cloneEl = this.$slides[2].clone();
+        (this.$slides.shift()).remove();
+        this.$slides.unshift($cloneEl);
+      }
 		}
+    this.setUp();
 	};
 
-	TinySwiper.prototype.setUp = function () {
+	TinySwiper.prototype.setUp = function ($removeEl) {
 
 		var _this = this;
 		var options = this.options;
@@ -274,7 +337,7 @@
 		}
 
 		if (!this.firstVisit) {
-			_this.options.slideStart.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
+			_this.options.onSlideStart.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
 		}
 
 		this.animationFinishNum = 0;
@@ -292,19 +355,29 @@
 							_this.$pages.eq(tempIndex).addClass(activeClass).siblings().removeClass(activeClass);
 						}
 						if (!this.firstVisit) {
-							_this.options.slideEnd.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
+							_this.options.onSlideEnd.call(_this.$el.get(0), _this.$slides[_this.centerIndex].get(0));
 						} else {
 							this.firstVisit = false;
 						}
 					} 
 				});
 			} else {
-					this.$slides[i]
-							.css('display', 'none')
-							.css('width', 0)
-							.css('height', 0)
-							.css('top', this.slidesOptions[this.centerIndex].top)
-							.css('left', this.slidesOptions[this.centerIndex].left)
+			  if (!this.normalStatus) {
+          this.$slides[i]
+            .css('display', 'none')
+            .css('width', 0)
+            .css('height', 0)
+            .css('top', this.slidesOptions[this.centerIndex].top)
+            .css('left', this.slidesOptions[this.centerIndex].left)
+        } else {
+			    var optionsLen = this.slidesOptions.length;
+          this.$slides[i]
+            .css('display', 'none')
+            .css('width', options.slidesProps.width)
+            .css('height', options.slidesProps.height)
+            .css('top', this.slidesOptions[optionsLen-1].top)
+            .css('left', this.slidesOptions[optionsLen-1].left)
+        }
 			}
 		}
 	};

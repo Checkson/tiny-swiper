@@ -10,7 +10,7 @@
 	<link rel="icon" href="images/favicon.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="css/styles.min.css"/>
 	<link rel="stylesheet" href="../lib/prism.min.css"/>
-  <style type="text/css">.slide-page-item,.header .logo-text{*zoom:1;*display:inline;}</style>
+  <style type="text/css">.slide-page-item,.page-item,.header .logo-text{*zoom:1;*display:inline;}</style>
 </head>
 <body>
 	<div class="app app-demo">
@@ -259,17 +259,99 @@ $('#tinySwiper5').tinySwiper({
     width: 500,
     height: 300
   },
-  slideStart: function (el) {         // this指向swiper容器, el为将要聚焦的幻灯片DOM元素
+  onSlideStart: function (el) {         // this指向swiper容器, el为将要聚焦的幻灯片DOM元素
     console.log('开始滑动');
   },
-  slideEnd: function (el) {            // this指向swiper容器，el为已经聚焦的幻灯片DOM元素
+  onSlideEnd: function (el) {            // this指向swiper容器，el为已经聚焦的幻灯片DOM元素
     console.log('开始结束');
   },
-  click: function (order, index) {
+  onClick: function (order, index) {
     console.log(this)                // 当前被点击幻灯片的DOM
     console.log(order, index)        // 静态下标、动态下标
   }
 });
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo demo5">
+          <h2 class="demo-header">六. 普通模式</h2>
+          <div class="tiny-swiper">
+            <ul id="tinySwiper6" class="swiper-list-img">
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img1.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img2.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img3.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img4.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img5.jpg"/>
+              </li>
+            </ul>
+            <ul class="slide-pagination-list">
+              <li class="page-item active">1</li>
+              <li class="page-item">2</li>
+              <li class="page-item">3</li>
+              <li class="page-item">4</li>
+              <li class="page-item">5</li>
+            </ul>
+          </div>
+          <div class="tiny-swiper-code">
+            <div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper6&quot; class=&quot;swiper-list-img&quot;&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img1.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img2.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img3.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img4.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img5.jpg&quot;/&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;ul class=&quot;slide-pagination-list&quot;&gt;
+    &lt;li class=&quot;page-item active&quot;&gt;1&lt;/li&gt;
+    &lt;li class=&quot;page-item&quot;&gt;2&lt;/li&gt;
+    &lt;li class=&quot;page-item&quot;&gt;3&lt;/li&gt;
+    &lt;li class=&quot;page-item&quot;&gt;4&lt;/li&gt;
+    &lt;li class=&quot;page-item&quot;&gt;5&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">JS代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-javascript"> // 回调函数
+$('#tinySwiper6').tinySwiper({
+  autoplay: true,
+  slidesLen: 1,                      // 轮播图显示数设置为1，就切换为普通模式
+  slides: '.slide-item-img',
+  slidesProps: {
+    width: '100%',
+    height: '100%'
+  },
+  pagination: {
+    el: '.page-item',
+    activeClass: 'active'
+  }
+});
+// 注意：若幻灯片数只有一张时，tiny-swiper会自动切换成普通模式
 </code></pre>
               </div>
             </div>
@@ -329,19 +411,33 @@ $('#tinySwiper5').tinySwiper({
         width: 500,
         height: 300
       },
-      slideStart: function (el) {
+      onSlideStart: function (el) {
         // console.log(this);
         // console.log(el);
         console.log('开始滑动');
       },
-      slideEnd: function (el) {
+      onSlideEnd: function (el) {
         // console.log(this);
         // console.log(el);
         console.log('开始结束');
       },
-      click: function (order, index) {
+      onClick: function (order, index) {
         console.log(this);
         console.log(order, index);
+      }
+    });
+    // demo6 --- 回调函数
+    $('#tinySwiper6').tinySwiper({
+      autoplay: true,
+      slidesLen: 1,                   // 轮播图显示数设置为1切换为普通模式 默认 5
+      slides: '.slide-item-img',
+      slidesProps: {
+        width: '100%',
+        height: '100%'
+      },
+      pagination: {
+        el: '.page-item',
+        activeClass: 'active'
       }
     });
 	</script>

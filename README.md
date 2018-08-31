@@ -1,11 +1,11 @@
 # tiny-swiper
-> 一个轻量，兼容IE7、IE8，3D swiper插件。
+> 一个轻量，兼容IE7、IE8，3D、支持移动端的swiper插件。
 
 ## demo
 [demo](https://checkson.github.io/tiny-swiper/demo/index.html)
 
 ## 介绍
-tiny-swiper是一个轻量级（压缩后文件只有4.53KB大小）、兼容性良好（兼容IE7、IE8）的幻灯片插件。
+tiny-swiper是一个轻量级（压缩后文件只有6.32KB大小）、兼容性良好（兼容IE7、IE8）的、支持移动端的swiper插件。
 
 ## 依赖
 [jQuery1.x](https://cdnjs.com/libraries/jquery/1.11.3)
@@ -38,7 +38,7 @@ tiny-swiper是一个轻量级（压缩后文件只有4.53KB大小）、兼容性
     height: 400px;
     width: 1000px;
 }
-/* 幻灯片的宽高，可以不设置 */
+/* 幻灯片的宽高，可以先不设置，最后在JS中设置即可 */
 .slide-item {
     position: absolute;
     width: 600px;
@@ -69,7 +69,7 @@ clickable | boolean | true | 是否可以点击某个幻灯片进行切换
 touchable | boolean | true | 是否可以滑动幻灯片进行切换
 slides | string | .slide-item | 每一张幻灯片的CSS类名
 slidesLen | number | 5 | `建议设置` 代表可视区域显示多少张幻灯片
-slidesProps | object | { width: 0, height: 0 } | `必须设置` 幻灯片的正常宽，高（单位px）
+slidesProps | object | { width: 0, height: 0 } | `必须设置` 幻灯片的正常宽，高，可以是百分比，可以是数字（单位px）
 navigation | object | { prev: '', next: '' } | 幻灯片向前、向后滑动的导航选择器
 pagination | object | { el: '', activeClass: '' } | 分页配置，el代表分页项选择器，activeClass代表激活添加的类
 
@@ -77,9 +77,9 @@ pagination | object | { el: '', activeClass: '' } | 分页配置，el代表分�
 
 名称 | 参数 | 返回值 | 描述
 :---: | :---: | :---: | :---: |
-slideStart | el | 无 | 每一次幻灯片滑动之前触发, el为将要聚焦的幻灯片的DOM |
-slideEnd | el | 无 | 每一次幻灯片滑动完（动画结束）后触发, el为已经聚焦的幻灯片的DOM |
-click | order, index | 无 | 每一次点击幻灯片都会触发，函数this指向当前被点击的幻灯片的DOM，order(类型为number)是指幻灯片静态（初始）下标，index(类型为number)是指幻灯片动态（当前）下标。
+onSlideStart | el | 无 | 每一次幻灯片滑动之前触发, el为将要聚焦的幻灯片的DOM |
+onSlideEnd | el | 无 | 每一次幻灯片滑动完（动画结束）后触发, el为已经聚焦的幻灯片的DOM |
+onClick | order, index | 无 | 每一次点击幻灯片都会触发，函数this指向当前被点击的幻灯片的DOM，order(类型为number)是指幻灯片静态（初始）下标，index(类型为number)是指幻灯片动态（当前）下标。
 
 **详细用法:**
 [请戳这里](https://checkson.github.io/tiny-swiper/demo/index.html)
