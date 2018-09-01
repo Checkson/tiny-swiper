@@ -19,6 +19,7 @@
     touchable: true,
 		slides: '.slide-item',
 		slidesLen: 5,
+    slidesSpace: '',
 		slidesProps: {
 			width: 0,
 			height: 0
@@ -240,13 +241,17 @@
       }
     } else {
 
+      var slidesSpace = parseInt(options.slidesSpace);
+
       for(var i = 0; i < this.visualLen; i++) {
 
         dis = Math.abs(this.centerIndex - i);
         width = Math.floor(sw);
         height = Math.floor(sh);
         top = Math.floor((ch - sh) / 2);
-        left = (i - this.centerIndex) * cw + Math.floor((cw - sw) / 2);
+        left = isNaN(slidesSpace) ?
+               (i - this.centerIndex) * cw + Math.floor((cw - sw) / 2) :
+                (i - this.centerIndex) * (sw + slidesSpace) + Math.floor((cw - sw) / 2);
         zIndex = this.centerIndex - dis + 1;
 
         this.slidesOptions.push({
@@ -327,7 +332,7 @@
     this.setUp();
 	};
 
-	TinySwiper.prototype.setUp = function ($removeEl) {
+	TinySwiper.prototype.setUp = function () {
 
 		var _this = this;
 		var options = this.options;

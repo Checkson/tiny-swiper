@@ -275,7 +275,7 @@ $('#tinySwiper5').tinySwiper({
             </div>
           </div>
         </div>
-        <div class="demo demo5">
+        <div class="demo demo7">
           <h2 class="demo-header">六. 普通模式</h2>
           <div class="tiny-swiper">
             <ul id="tinySwiper6" class="swiper-list-img">
@@ -349,6 +349,69 @@ $('#tinySwiper6').tinySwiper({
   pagination: {
     el: '.page-item',
     activeClass: 'active'
+  }
+});
+// 注意：若幻灯片数只有一张时，tiny-swiper会自动切换成普通模式
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div><div class="demo demo6">
+          <h2 class="demo-header">七. 设置幻灯片之间空隙</h2>
+          <div class="tiny-swiper">
+            <ul id="tinySwiper7" class="swiper-list-img">
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img1.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img2.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img3.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img4.jpg"/>
+              </li>
+              <li class="slide-item-img">
+                <img class="slide-img" src="./images/sliders/img5.jpg"/>
+              </li>
+            </ul>
+          </div>
+          <div class="tiny-swiper-code">
+            <div class="code-inner inner">
+              <h3 class="code-header">HTML代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-html">
+&lt;div class=&quot;tiny-swiper&quot;&gt;
+  &lt;ul id=&quot;tinySwiper6&quot; class=&quot;swiper-list-img&quot;&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img1.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img2.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img3.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img4.jpg&quot;/&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;slide-item-img&quot;&gt;
+      &lt;img class=&quot;slide-img&quot; src=&quot;./images/sliders/img5.jpg&quot;/&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <h3 class="code-header">JS代码示例</h3>
+              <div class="code-content">
+								<pre><code class="language-javascript"> // 回调函数
+$('#tinySwiper7').tinySwiper({
+  slidesLen: 1,                      // 轮播图显示数设置为1，就切换为普通模式
+  slidesSpace: 10,                   // 轮播图之间的空隙，当且仅当slidesLen为1时，该属性才生效。
+  slides: '.slide-item-img',
+  slidesProps: {
+    width: '80%',
+    height: '100%'
   }
 });
 // 注意：若幻灯片数只有一张时，tiny-swiper会自动切换成普通模式
@@ -438,6 +501,16 @@ $('#tinySwiper6').tinySwiper({
       pagination: {
         el: '.page-item',
         activeClass: 'active'
+      }
+    });
+    // demo6 --- 回调函数
+    $('#tinySwiper7').tinySwiper({
+      slidesLen: 1,                   // 轮播图显示数设置为1切换为普通模式 默认 5
+      slidesSpace: 10,                // 轮播图之间的空隙
+      slides: '.slide-item-img',
+      slidesProps: {
+        width: '80%',
+        height: '100%'
       }
     });
 	</script>
